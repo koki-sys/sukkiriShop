@@ -40,4 +40,23 @@ public class AccountDAO {
 		}
 		return account;
 	}
+
+	public boolean register(Account account) {
+		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			String sql = "INSERT INTO ACCOUNT(USER_ID, NAME, MAIL, AGE, PASS) VALUES(?, ?, ?, ?, ?)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			pStmt.setString(1, account.getUserId());
+			pStmt.setString(2, account.getName());
+			pStmt.setString(3, account.getMail());
+			pStmt.setInt(4, account.getAge());
+			pStmt.setString(5, account.getPass());
+
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }

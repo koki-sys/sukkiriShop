@@ -8,6 +8,7 @@ public class AccountDAOTest {
 	public static void main(String[] args) {
 		testFindAll();
 		testPasswordMismatch();
+		testRegister();
 	}
 	public static void testFindAll() {
 		Login login = new Login("minato", "1234");
@@ -34,6 +35,17 @@ public class AccountDAOTest {
 			System.out.println("testPasswordMismatch:パスワードが違います。");
 		} else {
 			System.out.println("testPasswordMismatch:パスワードが一致しています。");
+		}
+	}
+
+	public static void testRegister() {
+		Account account = new Account("takahashi", "1223", "example@s.com", "たかはし", 23);
+		AccountDAO dao = new AccountDAO();
+		boolean canRegister = dao.register(account);
+		if(canRegister) {
+			System.out.println("testRegister:成功しました。");
+		} else {
+			System.out.println("testRegister:失敗しました。");
 		}
 	}
 }
